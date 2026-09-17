@@ -1,0 +1,12 @@
+services:
+  typst:
+    image: ghcr.io/typst/typst:latest
+    volumes:
+      - .:/work
+    working_dir: /work
+    entrypoint: ["typst"]
+
+  typst-mcp:
+    image: ghcr.io/johannesbrandenburger/typst-mcp:latest
+    stdin_open: true
+    tty: true

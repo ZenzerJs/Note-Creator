@@ -19,8 +19,8 @@
   set page(
     paper: "us-letter",
     margin: (top: 2.5cm, bottom: 2.5cm, left: 2.5cm, right: 2.5cm),
-    header: locate(loc => {
-      if loc.page() > 1 [
+    header: context {
+      if counter(page).get().first() > 1 [
         #text(size: 8pt, fill: luma(100))[
           *MA201: Multivariable Calculus* | #lecture
           #h(1fr)
@@ -29,13 +29,13 @@
         #v(-4pt)
         #line(length: 100%, stroke: 0.5pt + luma(180))
       ]
-    }),
-    footer: locate(loc => {
+    },
+    footer: context {
       text(size: 8pt, fill: luma(120))[
         #h(1fr)
-        Page #loc.page()
+        Page #counter(page).get().first()
       ]
-    })
+    }
   )
 
   set text(
@@ -62,56 +62,59 @@
       #text(fill: luma(100), size: 9pt)[#date]
     ]
   )
-  #v(10pt)
+  v(10pt)
 
   doc
 }
 
 // Callout Cards
 #let definition(title: "Definition", body) = {
+  v(6pt)
   block(
     width: 100%,
     fill: bg-def,
     stroke: (left: 4pt + border-def, rest: 0.5pt + border-def),
     inset: (x: 12pt, y: 10pt),
     radius: (right: 4pt),
-    margin: (y: 8pt),
     [
       #text(weight: "bold", fill: rgb("#1d4ed8"))[📘 #title] \
       #v(3pt)
       #body
     ]
   )
+  v(6pt)
 }
 
 #let keytip(title: "Key Tip", body) = {
+  v(6pt)
   block(
     width: 100%,
     fill: bg-tip,
     stroke: (left: 4pt + border-tip, rest: 0.5pt + border-tip),
     inset: (x: 12pt, y: 10pt),
     radius: (right: 4pt),
-    margin: (y: 8pt),
     [
       #text(weight: "bold", fill: rgb("#15803d"))[💡 #title] \
       #v(3pt)
       #body
     ]
   )
+  v(6pt)
 }
 
 #let problem(title: "Practice Problem", body) = {
+  v(6pt)
   block(
     width: 100%,
     fill: bg-prob,
     stroke: (left: 4pt + border-prob, rest: 0.5pt + border-prob),
     inset: (x: 12pt, y: 10pt),
     radius: (right: 4pt),
-    margin: (y: 8pt),
     [
       #text(weight: "bold", fill: rgb("#c2410c"))[✏️ #title] \
       #v(3pt)
       #body
     ]
   )
+  v(6pt)
 }
