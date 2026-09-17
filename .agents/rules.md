@@ -53,3 +53,7 @@
 3. Generate needed 3D / 2D figures into `figs/` using `figs/gen_figs.py`.
 4. Compose lecture Typst file using `template.typ` components.
 5. Compile via `docker compose run --rm typst compile --font-path fonts <file>.typ <output>.pdf`.
+6. Visual Preview Delivery:
+   - Export page PNGs: `docker compose run --rm typst compile --font-path fonts <file>.typ "figs/page_{p}.png"`
+   - Copy to conversation brain directory and present as interactive visual carousel artifact.
+
