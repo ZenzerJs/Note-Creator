@@ -230,6 +230,8 @@ All cards (`#definition`, `#keytip`, `#quizalert`), multi-column tables (`#matri
 
 ## 🤖 Master AI Agent Prompt
 
+> 💡 **Tip:** A standalone copy-pasteable version of this prompt is also available in [CLAUDE_PROMPT.md](CLAUDE_PROMPT.md).
+
 When using an AI agent (Claude Code, Antigravity, or Cursor), copy and paste this prompt to autonomously process new lecture notes:
 
 ```markdown
