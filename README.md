@@ -24,6 +24,7 @@
 - [Architecture](#-architecture)
 - [Tech Stack](#-tech-stack)
 - [Getting Started](#-getting-started)
+- [Customizing Orientation & Surfaces](#-customizing-orientation--surfaces-portrait-vs-landscape)
 - [Master AI Agent Prompt](#-master-ai-agent-prompt)
 - [iPad & Noteful Workflow](#-ipad--noteful-workflow)
 - [Project Structure](#-project-structure)
@@ -183,6 +184,44 @@ typst compile --font-path fonts lecture01_notes.typ created_notes/MA201_Lecture0
 typst compile --font-path fonts lecture01_practice.typ created_notes/MA201_Lecture01_Practice.pdf
 ```
 </details>
+
+---
+
+## 📐 Customizing Orientation & Surfaces (Portrait vs. Landscape)
+
+The design system is fully responsive and automatically reflows to any device screen or physical paper size. You control orientation and dimensions directly at the top of your `.typ` document via `doc.with(...)`:
+
+### 1. Landscape Mode (Default — 11" iPad Pro in Noteful / Goodnotes)
+Optimized for horizontal tablet note-taking. Fills the screen with zero horizontal letterboxing and provides wide ruled `#worklines()` for comfortable Apple Pencil handwriting:
+```typst
+#show: doc.with(
+  title: "Lecture 01 Notes",
+  landscape: true,             // Horizontal 11" x 8.5"
+  paper-size: "us-letter"      // Standard US Letter (or "a4")
+)
+```
+
+### 2. Portrait Mode (Vertical — Physical Binders, Printable Handouts, Mobile)
+If you prefer traditional vertical notes or intend to print physical copies:
+```typst
+#show: doc.with(
+  title: "Lecture 01 Notes",
+  landscape: false,            // Vertical 8.5" x 11"
+  paper-size: "us-letter"
+)
+```
+
+### 3. Custom Tablet & E-Ink Surfaces (Exact Millimeter Matching)
+To eliminate borders on any specific device (iPad Mini, iPad Air 13", reMarkable 2, Kindle Scribe, Supernote), specify custom paper presets or exact dimensions:
+```typst
+#show: doc.with(
+  title: "Lecture 01 Notes",
+  landscape: true,
+  paper-size: "a5"             // Compact tablet preset (or custom mm dimensions)
+)
+```
+
+All cards (`#definition`, `#keytip`, `#quizalert`), multi-column tables (`#matrix()`), and ruled writing lines (`#worklines()`) automatically reflow to the chosen width and orientation.
 
 ---
 
