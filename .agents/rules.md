@@ -34,9 +34,22 @@
   - NeetCode 150 & Portfolio Sprints (Sat)
   - Job Application Batch 7 & Interview Prep (Sun)
 
-## Execution Routine for Note Generation
-1. Ingest lecture / raw scans from `raw_notes/`.
+## Typst Formatting Standards & Gotchas
+1. **Vectors**: Use literal Unicode brackets `⟨ ⟩` (e.g. `$arrow(r)(t) = ⟨t, 1-t⟩$`), NOT `angle.l` / `angle.r`.
+2. **Maple Code**: Wrap in `#code("...")` (`#raw(..., block: true)`) to prevent smart quote/hyphen substitution.
+3. **No Splitting Callouts**: Keep `breakable: false` on callouts (`#definition`, `#keytip`, `#example`, `#quizalert`, `#assignalert`, `#mapletip`).
+4. **Clean Pagination**: Never use hard `pagebreak()`; use auto-flow or `pagebreak(weak: true)` to avoid blank margins.
+5. **Decoupled 3D Figures**: Never draw complex 3D math directly in Typst; generate transparent PNGs in `figs/` with `style_3d()` in matplotlib (`figs/gen_figs.py`), then include via `#fig("figs/name.png", caption: [...])` or `#qcard(...)`.
+6. **5-Part Lecture Architecture**:
+   - Section 1: Recap & Visual Intuition
+   - Section 2: Quick-Reference Cheat-Sheet / Matrix
+   - Section 3: Traps, Clicker Alerts & Maple Lab Tips
+   - Section 4: Worked Exam/Assignment Problems
+   - Section 5: Test Yourself (Worksheet with `#question`, `#worklines`, `#answer`)
+
+## Execution Routine for New Lectures
+1. Ingest raw scan/PDF from `raw_notes/`.
 2. Cross-reference textbook section in Stewart 9th Ed and assigned practice problems in `Material/PRACTICE_PROBLEMS.md`.
-3. Generate 3D / 2D figures via `figs/`.
-4. Compose `lectureXX/main.typ` using `#definition`, `#keytip`, and `#problem` cards from `template.typ`. Include Stewart practice problem numbers and worked solutions.
-5. Compile via `docker compose run --rm typst compile --root . lectureXX/main.typ lectureXX/out.pdf`.
+3. Generate needed 3D / 2D figures into `figs/` using `figs/gen_figs.py`.
+4. Compose lecture Typst file using `template.typ` components.
+5. Compile via `docker compose run --rm typst compile --font-path fonts <file>.typ <output>.pdf`.
