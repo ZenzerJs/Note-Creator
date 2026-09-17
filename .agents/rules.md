@@ -56,4 +56,7 @@
 6. Visual Preview Delivery:
    - Export page PNGs: `docker compose run --rm typst compile --font-path fonts <file>.typ "figs/page_{p}.png"`
    - Copy to conversation brain directory and present as interactive visual carousel artifact.
+7. Active-Recall Flashcard Export:
+   - Run `python scripts/export_anki.py <file>.typ <output>.apkg` to turn `#question` / `#answer` into an importable Anki deck.
+
 
