@@ -1,0 +1,13 @@
+# Typst compile artifacts
+*.pdf
+!lecture*/*.pdf
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+env/
+
+# OS artifacts
+.DS_Store
+Thumbs.db
