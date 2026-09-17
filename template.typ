@@ -16,10 +16,11 @@
 #let head-font  = "Patrick Hand"
 #let note-font  = "Caveat"
 
-#let doc(title: "", subtitle: "", body) = {
+#let doc(title: "", subtitle: "", landscape: true, body) = {
   set page(
     paper: "us-letter",
-    margin: (x: 1.5cm, y: 1.6cm),
+    flipped: landscape,
+    margin: if landscape { (x: 1.8cm, y: 1.4cm) } else { (x: 1.5cm, y: 1.6cm) },
     fill: paper,
     footer: context [
       #set text(size: 8pt, fill: ink.lighten(40%), font: body-font)
