@@ -2,16 +2,18 @@
 
 # 📓 NoteCreator
 
-**Autonomous local-first academic note engine that turns messy handwritten lectures into publication-grade, landscape digital study guides for iPad.**
+**Autonomous local-first academic note engine that turns messy handwritten lectures into publication-grade digital study guides for any device, orientation, and note-taking app.**
 
 [![Typst](https://img.shields.io/badge/Typst-v0.13-239DAD?logo=typst&logoColor=white)](https://typst.app/)
 [![Python](https://img.shields.io/badge/Python-3.14-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+[![Orientation](https://img.shields.io/badge/Orientation-Landscape_%7C_Portrait-success)](https://typst.app/)
+[![Device](https://img.shields.io/badge/Device-Any_Tablet_%7C_Laptop_%7C_Print-8A2BE2)](https://typst.app/)
+[![Apps](https://img.shields.io/badge/Apps-Noteful_%7C_Goodnotes_%7C_Notability_%7C_Samsung_Notes-blue)](https://typst.app/)
 [![Anki](https://img.shields.io/badge/Anki-Spaced_Repetition-0099FF)](https://apps.ankiweb.net/)
-[![Noteful](https://img.shields.io/badge/iPad_Pro-11"--Noteful-black?logo=apple&logoColor=white)](https://www.getnoteful.com/)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-*Zero fluff. Zero clutter. Dual-book split architecture engineered for Apple Pencil handwriting and active recall.*
+*Zero fluff. Zero clutter. Dual-book split architecture engineered for stylus handwriting in any orientation on any device.*
 
 </div>
 
@@ -24,9 +26,9 @@
 - [Architecture](#-architecture)
 - [Tech Stack](#-tech-stack)
 - [Getting Started](#-getting-started)
-- [Customizing Orientation & Surfaces](#-customizing-orientation--surfaces-portrait-vs-landscape)
+- [Customizing Orientation & Surfaces](#-customizing-orientation--surfaces-landscape-vs-portrait)
 - [Master AI Agent Prompt](#-master-ai-agent-prompt)
-- [iPad & Noteful Workflow](#-ipad--noteful-workflow)
+- [Digital Note-Taking Workflow (Any App)](#-digital-note-taking-workflow-any-app)
 - [Project Structure](#-project-structure)
 - [Philosophy](#-philosophy)
 
@@ -34,12 +36,13 @@
 
 ## 💡 Why NoteCreator
 
-Most AI study tools dump monolithic, text-heavy vertical PDFs that are unreadable on a tablet, cram illegible equation screenshots, or invent practice problems that bear no resemblance to your syllabus. NoteCreator fixes this:
+Most AI study tools dump monolithic, text-heavy PDFs with awkward aspect ratios, illegible equation screenshots, or practice problems disconnected from your syllabus. NoteCreator fixes this:
 
 | The Problem with Typical AI Notes | How NoteCreator Fixes It |
 |---|---|
 | ❌ Giant monolithic PDFs that clutter notes with homework | ✅ **Dual-Book Split Architecture**: Notes & Lab Guide separate from Practice & Worksheets |
-| ❌ Vertical portrait layout leaves black bars on iPad screens | ✅ **Native 11" Landscape**: Edge-to-edge widescreen layout formatted for Noteful/Goodnotes |
+| ❌ Rigid page formats that leave black letterboxing on screens | ✅ **Any Device & Orientation**: Seamlessly switch between landscape (tablets) or portrait (binders/mobile) |
+| ❌ Locked into a single app or ecosystem | ✅ **Universal PDF Standard**: Imports flawlessly into Noteful, Goodnotes, Notability, Samsung Notes, or Acrobat |
 | ❌ Generic LLM math hallucination with missing steps | ✅ **Rigorous Step Derivation**: Complete algebra, parameter tables, and explicit endpoint verification |
 | ❌ Blurry or broken inline drawing | ✅ **Decoupled 3D Diagram Pipeline**: High-res transparent PNGs pre-rendered via Python & Matplotlib |
 | ❌ Worksheets get filled once and forgotten | ✅ **Instant Anki Export**: Generates `.apkg` flashcard decks directly from active-recall questions |
@@ -56,8 +59,8 @@ Most AI study tools dump monolithic, text-heavy vertical PDFs that are unreadabl
 ### 📖 Dual-Book Split Architecture
 Separates theory from practice. **Book 1 (Notes & Lab Reference)** stays clean for open-book labs and quick concept lookup; **Book 2 (Practice & Homework)** provides full exam walkthroughs, active recall, and answer keys.
 
-### ✍️ iPad Pro 11" Optimized (Noteful Ready)
-Crafted specifically for landscape tablet note-taking. Generates full-width ruled `#worklines()` giving your Apple Pencil comfortable physical space to write derivations without zooming.
+### ✍️ Fully Customizable Surfaces & Orientation
+Crafted for any tablet, laptop, or paper binder. Choose horizontal landscape for wide desk tablet viewing or traditional vertical portrait for printing — with full-width ruled `#worklines()` giving your stylus comfortable space to write.
 
 ### 📐 Decoupled 3D Diagram Layer
 3D surfaces, space curves, quadrics, and vector fields are plotted in Python with transparent backgrounds and unified color palettes before Typst compiles — zero layout engine crashes.
@@ -65,14 +68,14 @@ Crafted specifically for landscape tablet note-taking. Generates full-width rule
 </td>
 <td width="50%" valign="top">
 
+### 📱 Universal PDF App Compatibility
+Exports clean, high-resolution vector PDFs ready to import into any note-taking app that supports PDF annotation: Noteful, Goodnotes, Notability, Samsung Notes, Nebo, OneNote, Apple Notes, or Acrobat.
+
 ### 🗃️ Automatic Anki Deck Generation
 Turns every `#question(n)` and `#answer(n)` block in your practice book into an importable, spaced-repetition Anki deck (`.apkg`) with a single command.
 
 ### 🎯 Dynamic Syllabus & Calendar Sync
 Drop your course syllabus, textbook name/PDF, and schedule (`.ics`) into `Material/` and `Calendar/`. The engine tailors alert callouts (`#quizalert`, `#assignalert`) to your actual upcoming midterms and labs.
-
-### 🐳 Zero-Install Docker Compiler
-Includes a lightweight Docker Compose setup pre-configured with the official Typst binary and font volumes — compile on Windows, Mac, or Linux with no local toolchain setup.
 
 </td>
 </tr>
@@ -93,13 +96,13 @@ flowchart TD
     subgraph Engine["NoteCreator Pipeline"]
         D["AI Vision & Equation Transcriber"]
         E["Matplotlib 3D Engine<br/>figs/gen_figs.py"]
-        F["Typst Layout Engine<br/>template.typ (Landscape)"]
+        F["Typst Layout Engine<br/>template.typ (Any Orientation)"]
         G["genanki Exporter<br/>scripts/export_anki.py"]
     end
 
     subgraph Outputs["created_notes/ Deliverables"]
-        H["Book 1: Notes & Lab Guide<br/>(4-5 Pages Landscape PDF)"]
-        I["Book 2: Practice & Worksheet<br/>(5-6 Pages with Ruled Lines)"]
+        H["Book 1: Notes & Lab Guide<br/>(Landscape or Portrait PDF)"]
+        I["Book 2: Practice & Worksheet<br/>(With Ruled Writing Lines)"]
         J["Anki Flashcard Deck<br/>(.apkg Spaced Repetition)"]
     end
 
@@ -131,7 +134,7 @@ flowchart TD
 | **Visualization Layer** | [Python 3](https://python.org) + [Matplotlib](https://matplotlib.org) + NumPy | Custom 3D wireframes, quadrics, and parametric space curves |
 | **Typography System** | Atkinson Hyperlegible + Patrick Hand + Caveat | High-legibility body type, informal hand-drawn headers, and annotation accents |
 | **Active Recall Engine** | [genanki](https://github.com/kerrickstaley/genanki) | Programmatic Anki deck generator extracting structured Typst Q&A pairs |
-| **Target Surface** | [Noteful](https://www.getnoteful.com/) on iPad Pro 11" | Digital notebook import with Apple Pencil handwriting compatibility |
+| **Target Surface** | Any Tablet, Laptop, or PDF App | Noteful, Goodnotes, Notability, Samsung Notes, Apple Pencil, or Physical Print |
 
 ---
 
@@ -162,13 +165,13 @@ cd Note-Creator
 **Option A: Using Docker (Zero local installs needed)**
 ```bash
 # Compile Book 1 (Notes & Lab Guide):
-docker compose run --rm typst compile --font-path fonts lecture01_notes.typ created_notes/MA201_Lecture01_Notes.pdf
+docker compose run --rm typst compile --font-path fonts lecture01_notes.typ created_notes/Lecture01_Notes.pdf
 
 # Compile Book 2 (Practice & Homework Worksheet):
-docker compose run --rm typst compile --font-path fonts lecture01_practice.typ created_notes/MA201_Lecture01_Practice.pdf
+docker compose run --rm typst compile --font-path fonts lecture01_practice.typ created_notes/Lecture01_Practice.pdf
 
 # Export Anki Spaced-Repetition Deck:
-python scripts/export_anki.py lecture01_practice.typ created_notes/MA201_Lecture01.apkg
+python scripts/export_anki.py lecture01_practice.typ created_notes/Lecture01.apkg
 ```
 
 **Option B: Using Native Typst CLI**
@@ -180,19 +183,19 @@ winget install --id Typst.Typst
 brew install typst
 
 # Compile directly:
-typst compile --font-path fonts lecture01_notes.typ created_notes/MA201_Lecture01_Notes.pdf
-typst compile --font-path fonts lecture01_practice.typ created_notes/MA201_Lecture01_Practice.pdf
+typst compile --font-path fonts lecture01_notes.typ created_notes/Lecture01_Notes.pdf
+typst compile --font-path fonts lecture01_practice.typ created_notes/Lecture01_Practice.pdf
 ```
 </details>
 
 ---
 
-## 📐 Customizing Orientation & Surfaces (Portrait vs. Landscape)
+## 📐 Customizing Orientation & Surfaces (Landscape vs. Portrait)
 
-The design system is fully responsive and automatically reflows to any device screen or physical paper size. You control orientation and dimensions directly at the top of your `.typ` document via `doc.with(...)`:
+The design system is fully responsive and automatically reflows to any device screen or physical paper size. You control orientation and dimensions directly at the top of your `.typ` document via `doc.with(...)`, or simply tell the AI which orientation you prefer:
 
-### 1. Landscape Mode (Default — 11" iPad Pro in Noteful / Goodnotes)
-Optimized for horizontal tablet note-taking. Fills the screen with zero horizontal letterboxing and provides wide ruled `#worklines()` for comfortable Apple Pencil handwriting:
+### 1. Landscape Mode (Horizontal — Tablets, Laptops & Desk Monitors)
+Optimized for horizontal tablet note-taking (iPad, Galaxy Tab, Surface). Fills the widescreen with zero horizontal letterboxing and provides wide ruled `#worklines()` for stylus handwriting:
 ```typst
 #show: doc.with(
   title: "Lecture 01 Notes",
@@ -202,7 +205,7 @@ Optimized for horizontal tablet note-taking. Fills the screen with zero horizont
 ```
 
 ### 2. Portrait Mode (Vertical — Physical Binders, Printable Handouts, Mobile)
-If you prefer traditional vertical notes or intend to print physical copies:
+If you prefer traditional vertical notes or intend to print physical sheets for a binder:
 ```typst
 #show: doc.with(
   title: "Lecture 01 Notes",
@@ -212,12 +215,12 @@ If you prefer traditional vertical notes or intend to print physical copies:
 ```
 
 ### 3. Custom Tablet & E-Ink Surfaces (Exact Millimeter Matching)
-To eliminate borders on any specific device (iPad Mini, iPad Air 13", reMarkable 2, Kindle Scribe, Supernote), specify custom paper presets or exact dimensions:
+To match any specific device screen (iPad Mini, iPad Pro 12.9", reMarkable 2, Kindle Scribe, Supernote, Boox):
 ```typst
 #show: doc.with(
   title: "Lecture 01 Notes",
   landscape: true,
-  paper-size: "a5"             // Compact tablet preset (or custom mm dimensions)
+  paper-size: "a5"             // Preset, or custom mm dimensions
 )
 ```
 
@@ -234,30 +237,32 @@ You are an expert academic TA, instructional designer, and Typst note architect.
 
 I have uploaded new raw lecture material into `raw_notes/` (photos of handwriting, slides, or whiteboard captures).
 
-Process this lecture and generate our standard Dual-Book horizontal landscape package according to `template.typ` and `.agents/rules.md`:
+Process this lecture and generate our standard Dual-Book package according to `template.typ` and `.agents/rules.md`:
 
 ### 1. Ingestion & Dynamic Context Analysis
 - Read raw handwritten notes directly using vision. Complete any cut-off derivations faithfully without guessing.
 - Check `Material/` for any course syllabus, textbook name/edition, or assigned problem lists. Cross-reference textbook section numbers, notation conventions, and homework questions.
 - Check `Calendar/` for upcoming quiz/exam deadlines to populate real dates into alert callouts.
 
-### 2. Visualization Layer
+### 2. Surface & Orientation Configuration
+- Format: Choose landscape (`doc.with(landscape: true)`) for tablet/widescreen viewing, or portrait (`doc.with(landscape: false)`) for printing/mobile, based on user preference.
+
+### 3. Visualization Layer
 - For any 3D surface, space curve, or geometric setup, write standalone Python scripts in `figs/` using `style_3d()` with transparent backgrounds.
 - Save diagrams as PNGs in `figs/` and embed them into Typst via `#fig("figs/name.png", caption: [...])` or `#qcard(...)`.
 
-### 3. Book 1: Lecture Notes & Lab Guide (`lectureXX_notes.typ`)
-- Format: Horizontal landscape (`doc.with(landscape: true)`).
+### 4. Book 1: Lecture Notes & Lab Guide (`lectureXX_notes.typ`)
 - Section 1: Recap & Visual Intuition (spatial intuition, geometric definitions, parameter progressions).
-- Section 2: Classification Cheat-Sheet (`#matrix()` recognition table + 3-column grid of `#qcard()`).
+- Section 2: Classification Cheat-Sheet (`#matrix()` recognition table + multi-column grid of `#qcard()`).
 - Section 3: Assessment Traps & Lab Tips (`#quizalert` for traps, `#assignalert` for deadlines/rubrics, `#mapletip` or software code in `#code("...")`).
 
-### 4. Book 2: Practice & Homework Worksheet (`lectureXX_practice.typ`)
+### 5. Book 2: Practice & Homework Worksheet (`lectureXX_practice.typ`)
 - Section 1: Fully Worked Problems (2-4 step-by-step problems with complete algebra, intermediate steps, and verification).
 - Section 2: Master Problem / Deep-Dive Analysis.
-- Section 3: Active-Recall Worksheet (2-4 `#question(n)` blocks with wide `#worklines(n)` for Apple Pencil handwriting in Noteful/Goodnotes).
+- Section 3: Active-Recall Worksheet (2-4 `#question(n)` blocks with wide `#worklines(n)` for stylus handwriting in any note-taking app).
 - Section 4: Detached Answer Key (final page with complete `#answer(n)` solutions).
 
-### 5. Build & Output
+### 6. Build & Output
 - Compile both books into `created_notes/`:
   - `created_notes/<Course>_LectureXX_Notes.pdf`
   - `created_notes/<Course>_LectureXX_Practice.pdf`
@@ -272,15 +277,18 @@ Typst Rules:
 
 ---
 
-## 📱 iPad & Noteful Workflow
+## 📱 Digital Note-Taking Workflow (Any App)
 
-1. **AirDrop or Cloud Sync**: Transfer the output PDFs from `created_notes/` directly to your iPad (AirDrop, Google Drive, iCloud, or OneDrive).
-2. **Import into Noteful**: Tap **+ (Import)** $\to$ select `MA201_LectureXX_Notes.pdf` or `Practice.pdf`.
-3. **Dual-Pane Study Mode**:
-   - Open **Book 1 (Notes)** on the left half of your iPad screen.
-   - Open **Book 2 (Practice)** on the right half.
-   - Use Apple Pencil to solve worksheet problems on the faint ruled `#worklines()`.
-4. **Anki Import**: Tap `MA201_LectureXX.apkg` on your Mac/iPad to import the cards straight into your Anki study deck.
+1. **Transfer Deliverables**: Transfer the output PDFs from `created_notes/` to your device (AirDrop, Google Drive, iCloud, OneDrive, or local USB).
+2. **Import into Any PDF-Compatible App**:
+   - **iOS / iPadOS**: Noteful, Goodnotes, Notability, Apple Notes.
+   - **Android / Windows**: Samsung Notes, Nebo, OneNote, Xodo, Acrobat.
+   - **E-Ink**: reMarkable, Supernote, Kindle Scribe, Boox.
+3. **Dual-Pane Study Setup**:
+   - Open **Book 1 (Notes)** on one side of your screen.
+   - Open **Book 2 (Practice)** on the other side.
+   - Write out worksheet solutions directly on the faint ruled `#worklines()` using your stylus or Apple Pencil.
+4. **Anki Flashcards**: Double-click or tap `created_notes/<Course>_LectureXX.apkg` to import the active-recall deck straight into Anki.
 
 ---
 
@@ -292,9 +300,9 @@ Typst Rules:
 │   └── mcp_config.json          # MCP tool definitions (typst-mcp)
 ├── Calendar/                    # Optional course schedule exports (.ics, gitignored)
 ├── created_notes/               # Final output deliverables (PDFs & Anki .apkg)
-│   ├── MA201_Lecture01_Notes.pdf
-│   ├── MA201_Lecture01_Practice.pdf
-│   └── MA201_Lecture01.apkg
+│   ├── Lecture01_Notes.pdf
+│   ├── Lecture01_Practice.pdf
+│   └── Lecture01.apkg
 ├── figs/                        # 3D diagram assets & matplotlib generators
 ├── fonts/                       # Atkinson Hyperlegible, Caveat, Patrick Hand TTFs
 ├── Material/                    # Optional syllabus, textbook, and problem lists (gitignored)
@@ -306,7 +314,7 @@ Typst Rules:
 ├── docker-compose.yml           # Pre-configured Typst compiler container
 ├── lecture01_notes.typ          # Lecture 01 Notes Book source
 ├── lecture01_practice.typ       # Lecture 01 Practice Book source
-├── template.typ                 # Reusable landscape layout components & card designs
+├── template.typ                 # Reusable layout components & card designs (any surface/orientation)
 └── README.md
 ```
 
@@ -315,11 +323,11 @@ Typst Rules:
 ## 🧠 Philosophy
 
 - **Local-First & Private**: Your lecture notes, grades, and personal calendar never leak to third-party cloud note silos. Everything compiles locally on your disk.
-- **Form Follows Function**: Textbooks are designed for print; digital notes should be designed for the screen they are read on. Horizontal landscape eliminates scrolling fatigue on tablets.
+- **Form Follows Device**: Textbooks are formatted for print; digital notes should fit whatever screen you read them on. Landscape or portrait, edge-to-edge with zero letterboxing.
 - **Active Recall Over Passive Skimming**: Reading notes gives an illusion of competence; writing out derivations and drilling flashcards builds real exam mastery.
 
 ---
 
 <div align="center">
-Built with ❤️ for STEM students using Antigravity, Typst, and Noteful.
+Built with ❤️ for STEM students using Antigravity and Typst.
 </div>

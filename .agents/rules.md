@@ -15,23 +15,23 @@ Before generating notes, check for supporting course context:
    - If no course materials or calendars are provided, generate standard rigorous academic notes based directly on the ingested `raw_notes/`.
 
 ## Typst Formatting Standards & Gotchas
-1. **Orientation**: Horizontal landscape (`flipped: true`, 11×8.5) default. Zero black bars in Noteful on iPad. Ruled `#worklines()` wide for Apple Pencil.
+1. **Orientation & Device**: Dynamic — Landscape (`landscape: true`) for widescreen tablets and monitors, or Portrait (`landscape: false`) for physical binders and mobile screens, configured as requested. Ruled `#worklines()` span full width for stylus/Apple Pencil handwriting in any note-taking app.
 2. **Vectors & Brackets**: Use literal Unicode brackets `⟨ ⟩` (e.g. `$arrow(r)(t) = ⟨t, 1-t⟩$`), NOT `angle.l` / `angle.r`.
 3. **Code Blocks**: Wrap code snippets in `#code("...")` (`#raw(..., block: true)`) to prevent smart quote/hyphen substitution.
 4. **No Splitting Callouts**: Keep `breakable: false` on callouts (`#definition`, `#keytip`, `#example`, `#quizalert`, `#assignalert`, `#mapletip`).
 5. **Clean Pagination**: Never use hard `pagebreak()`; use auto-flow or `pagebreak(weak: true)` to avoid blank margins.
 6. **Decoupled 3D Figures**: Never draw complex 3D math directly in Typst; generate transparent PNGs in `figs/` with `style_3d()` in matplotlib (`figs/gen_figs.py`), then include via `#fig("figs/name.png", caption: [...])` or `#qcard(...)`.
 
-## Dual-Book Split Architecture (11" iPad Pro / Noteful)
-Every lecture/unit generates TWO separate horizontal landscape notebooks:
+## Dual-Book Split Architecture (Any Device & App)
+Every lecture/unit generates TWO separate notebooks formatted for any PDF-compatible app (Noteful, Goodnotes, Notability, Samsung Notes, Acrobat):
 - **Book 1: Notes & Lab Reference (`lectureXX_notes.typ` $\to$ `created_notes/<Course>_LectureXX_Notes.pdf`)**:
-  * Section 1: Recap & Visual Intuition (2D-to-3D reasoning, geometrical definitions, parameter progressions)
+  * Section 1: Recap & Visual Intuition (spatial reasoning, geometric definitions, parameter progressions)
   * Section 2: Classification Matrix & 3D Cards (recognition tables, multi-column card grids)
   * Section 3: Assessment Traps & Lab Tips (dimension/quiz traps, software/lab code, rubric reminders)
 - **Book 2: Practice & Homework Worksheet (`lectureXX_practice.typ` $\to$ `created_notes/<Course>_LectureXX_Practice.pdf`)**:
   * Section 1: Fully Worked Exam & Assignment Problems (step-by-step solutions with full algebraic derivations)
   * Section 2: Master Problem / Deep-Dive Analysis
-  * Section 3: Active-Recall Worksheet (with wide `#worklines()` for Apple Pencil handwriting in Noteful)
+  * Section 3: Active-Recall Worksheet (with wide `#worklines()` for stylus handwriting in any app)
   * Section 4: Detached Solutions & Answer Key
 - **Flashcard Deck**: `created_notes/<Course>_LectureXX.apkg` via `scripts/export_anki.py`.
 
