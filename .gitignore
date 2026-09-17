@@ -5,14 +5,23 @@
 page_*.png
 **/*_page_*.png
 
-# Archives
+# Personal Calendar (.ics files)
+Calendar/*.ics
+
+# Course Material & Copyrighted Textbooks/Syllabi
+Material/*.pdf
+Material/*.txt
+Material/*_extracted.txt
+
+# Raw user uploads (photos/scans)
+raw_notes/*
+!raw_notes/.gitkeep
+
+# Archives & skills
 *.zip
 *.skill
 
-# Scratch text dumps
-Material/*_extracted.txt
-
-# Python
+# Python & virtual environments
 __pycache__/
 *.py[cod]
 .venv/
