@@ -42,23 +42,31 @@
 5. **Clean Pagination**: Never use hard `pagebreak()`; use auto-flow or `pagebreak(weak: true)` to avoid blank margins.
 6. **Decoupled 3D Figures**: Never draw complex 3D math directly in Typst; generate transparent PNGs in `figs/` with `style_3d()` in matplotlib (`figs/gen_figs.py`), then include via `#fig("figs/name.png", caption: [...])` or `#qcard(...)`.
 
-6. **5-Part Lecture Architecture**:
-   - Section 1: Recap & Visual Intuition
-   - Section 2: Quick-Reference Cheat-Sheet / Matrix
-   - Section 3: Traps, Clicker Alerts & Maple Lab Tips
-   - Section 4: Worked Exam/Assignment Problems
-   - Section 5: Test Yourself (Worksheet with `#question`, `#worklines`, `#answer`)
+7. **Dual-Book Split Architecture (11" iPad Pro / Noteful)**:
+   Every lecture generates TWO separate horizontal landscape notebooks:
+   - **Book 1: Notes & Lab Reference (`lectureXX_notes.typ` $\to$ `MA201_LectureXX_Notes.pdf`)**:
+     * Section 1: Recap & Visual Intuition (Cylinders, rulings, 3D parameterization)
+     * Section 2: Classification Matrix & 3D Cards (6 Quadric surfaces, trace synthesis)
+     * Section 3: Assessment Traps & Maple Lab Tips (Permitted in open-book Thursday labs!)
+   - **Book 2: Practice & Homework Worksheet (`lectureXX_practice.typ` $\to$ `MA201_LectureXX_Practice.pdf`)**:
+     * Section 1: Fully Worked Exam & Assignment Problems (Stewart 9e problem types)
+     * Section 2: Trace Analysis Master Problem
+     * Section 3: Active-Recall Worksheet (with wide `#worklines()` for Apple Pencil in Noteful)
+     * Section 4: Detached Solutions & Answer Key
+   - **Flashcard Deck**: `MA201_LectureXX.apkg` via `scripts/export_anki.py`.
 
 ## Execution Routine for New Lectures
 1. Ingest raw scan/PDF from `raw_notes/`.
 2. Cross-reference textbook section in Stewart 9th Ed and assigned practice problems in `Material/PRACTICE_PROBLEMS.md`.
 3. Generate needed 3D / 2D figures into `figs/` using `figs/gen_figs.py`.
-4. Compose lecture Typst file using `template.typ` components.
-5. Compile via `docker compose run --rm typst compile --font-path fonts <file>.typ <output>.pdf`.
+4. Compose `lectureXX_notes.typ` and `lectureXX_practice.typ`.
+5. Compile both books:
+   - `docker compose run --rm typst compile --font-path fonts lectureXX_notes.typ MA201_LectureXX_Notes.pdf`
+   - `docker compose run --rm typst compile --font-path fonts lectureXX_practice.typ MA201_LectureXX_Practice.pdf`
 6. Visual Preview Delivery:
-   - Export page PNGs: `docker compose run --rm typst compile --font-path fonts <file>.typ "figs/page_{p}.png"`
-   - Copy to conversation brain directory and present as interactive visual carousel artifact.
+   - Export page PNGs (`figs/notes_page_{p}.png`, `figs/practice_page_{p}.png`).
+   - Present interactive visual carousel artifact in chat.
 7. Active-Recall Flashcard Export:
-   - Run `python scripts/export_anki.py <file>.typ <output>.apkg` to turn `#question` / `#answer` into an importable Anki deck.
+   - Run `python scripts/export_anki.py lectureXX_practice.typ MA201_LectureXX.apkg`.
 
 
