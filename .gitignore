@@ -1,6 +1,15 @@
 # Typst compile artifacts
 *.pdf
+!MA201_Lecture01_StudyGuide.pdf
 !lecture*/*.pdf
+**/page_*.png
+page_*.png
+
+# Source zip
+*.zip
+
+# Scratch dumps
+Material/*_extracted.txt
 
 # Python
 __pycache__/
