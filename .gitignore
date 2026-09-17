@@ -1,14 +1,15 @@
-# Typst compile artifacts
+# Output artifacts
 *.pdf
-!MA201_Lecture01_StudyGuide.pdf
-!lecture*/*.pdf
+!created_notes/*.pdf
 **/page_*.png
 page_*.png
+**/*_page_*.png
 
-# Source zip
+# Archives
 *.zip
+*.skill
 
-# Scratch dumps
+# Scratch text dumps
 Material/*_extracted.txt
 
 # Python
